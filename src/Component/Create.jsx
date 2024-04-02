@@ -10,7 +10,6 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("clciekd");
     axios
       .post("https://65e84dbc4bb72f0a9c4ee37b.mockapi.io/Crud-React", {
         name: name,
@@ -22,42 +21,54 @@ const Create = () => {
   };
 
   return (
-    <>
-      <div className="d-flex justify-content-between m-2">
-        <h2>Create</h2>
-        <Link to="/read">
-          <button className="btn btn-primary">Show Data</button>
-        </Link>
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-header d-flex justify-content-between align-items-center" style={{marginTop:'30px'}}>
+           <strong style={{fontSize:'36px'}}>CREATE TODO</strong>
+             
+            </div>
+            <div className="card-body" style={{marginTop:'30px'}}>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="name" className="form-label">
+                    Heading
+                  </label>
+                  <input
+                    type="Heading"
+                    className="form-control"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">
+                    Todo
+                  </label>
+                  <textarea
+                    type="text"
+                    className="form-control"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div style={{margin:'10px 0'}}>
+                <button type="submit" className="btn btn-primary" style={{marginRight:'10px'}}>
+                  Add Todo
+                </button>
+                <Link to="/read" className="btn btn-primary">
+                View Task
+              </Link>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-      <form>
-        <div className="mb-3">
-          <label className="form-label">Name</label>
-          <input
-            type="text"
-            className="form-control"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            aria-describedby="emailHelp"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="btn btn-primary"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
-      </form>
-    </>
+    </div>
   );
 };
 

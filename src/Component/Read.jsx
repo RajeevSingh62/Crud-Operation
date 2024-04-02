@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const Read = () => {
   const [data, setData] = useState([]);
-  const [tabledark, setTableDark] = useState("");
 
   function getData() {
     axios
@@ -34,61 +33,54 @@ const Read = () => {
 
   return (
     <>
-     
-      <div className="d-flex justify-content-between m-2">
-        <h2>Read Operation</h2>
-        <Link to="/">
-          <button className="btn btn-secondary">Create</button>
-        </Link>
-      </div>
-      <table style={{ width: '100%', borderCollapse: 'collapse', backgroundColor: '#333', color: '#fff' }} className="table table-dark">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        {data.map((eachData) => {
-          return (
-            <>
-              <tbody>
-                <tr>
-                  <th scope="row">{eachData.id}</th>
-                  <td>{eachData.name}</td>
-                  <td>{eachData.email}</td>
-                  <td>
-                    <Link to="/update">
-                      <button
-                        className="btn-success"
-                        onClick={() =>
-                          setToLocalStorage(
-                            eachData.id,
-                            eachData.name,
-                            eachData.email
-                          )
-                        }
-                      >
-                        Edit{" "}
-                      </button>
-                    </Link>
-                  </td>
-                  <td>
+      <div className="container">
+        <div className="d-flex justify-content-between mt-2 mb-4">
+          <h2>Read Todo</h2>
+          <Link to="/">
+            <button className="btn btn-secondary" style={{marginBottom:'10px'}}>Create New Todo</button>
+          </Link>
+        </div>
+        <table className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Date</th>
+              <th scope="col">Todo-list</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((eachData) => (
+              <tr key={eachData.id}>
+                <th scope="row">{eachData.id}</th>
+                <td>{eachData.name}</td>
+                <td>{eachData.email}</td>
+                <td>
+                  <Link to="/update">
                     <button
-                      className="btn-danger"
-                      onClick={() => handleDelete(eachData.id)}
+                      className="btn btn-success btn-sm"
+                      onClick={() =>
+                        setToLocalStorage(eachData.id, eachData.name, eachData.email)
+                      }
                     >
-                      Delete
+                      <i className="fas fa-edit"></i> Edit
                     </button>
-                  </td>
-                </tr>
-              </tbody>
-            </>
-          );
-        })}
-      </table>
+                  </Link>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(eachData.id)}
+                  >
+                    <i className="fas fa-trash"></i> Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
